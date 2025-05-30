@@ -10,8 +10,6 @@ Parses login data from CSV files (real or simulated).
 
 Flags logins based on time, country, or IP rules.
 
-(Optional) Trains a basic model to learn login behavior.
-
 Outputs flagged attempts in a clean report format.
 
 🛠️ Tech Stack
