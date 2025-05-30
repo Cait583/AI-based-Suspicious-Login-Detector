@@ -1,21 +1,27 @@
-import pandas as pd  # This handles data in tables like Excel to simulate the login records
-import datetime  # This imports Python's built-in module that works with time and dates to check when a login occurred
-import random  # This will simulate login data like fake login times, IP addresses, and countries
-import ipaddress  # This lets Python work with IP addresses like verifying if they are valid or seeing if there is a suspicious range
+import pandas as pd  # Handles data in tables like Excel to simulate the login records
+import datetime  # Works with time and dates to check when a login occurred
+import random  # Simulates login data like fake login times, IP addresses, and countries
+import ipaddress  # Works with IP addresses for validation and checks
 
-def generate_fake_logins(num_entries=10):  # This will generate 10 fake logins by default
-    logins = []  # This is creating an empty list called logins; it will store each fake login created
-    countries = ['US', 'CN', 'RU', 'BR', 'IN', 'DE', 'FR', 'NG', 'KR', 'IR']  # This creates a list of country codes
-
-    for _ in range(num_entries):  # This for loop will run num_entries times; each loop creates one fake login
-        login_time = datetime.datetime.now() - datetime.timedelta(minutes=random.randint(1, 10000))  # Generates a fake timestamp
-        ip = str(ipaddress.IPv4Address(random.randint(0, 2**32 - 1)))  # Generates a random but valid IP address
-        country = random.choice(countries)  # Randomly picks a country code for the login origin
-
-        logins.append({  # This adds the generated login as a dictionary to the list
+def generate_fake_logins(num_entries=10):  # Generates 10 fake logins by default
+    logins = []  # Empty list to store each fake login
+    countries = ['US', 'CN', 'RU', 'BR', 'IN', 'DE', 'FR', 'NG', 'KR', 'IR']  # Country codes to pick from
+    for _ in range(num_entries):  # Loop to generate each login
+        login_time = datetime.datetime.now() - datetime.timedelta(minutes=random.randint(1, 10000))  # Fake timestamp
+        ip = str(ipaddress.IPv4Address(random.randint(0, 2**32 - 1)))  # Fake IP address
+        country = random.choice(countries)  # Random country from list
+        logins.append({  # Add login record to list
             'timestamp': login_time,
             'ip': ip,
             'country': country
         })
+    return logins  # Return the list of fake logins
 
-    return logins  # Returns the list of fake logins
+# Generate 10 fake login records using our function
+logins = generate_fake_logins(10)
+
+# Convert the list of login dictionaries into a pandas DataFrame (table)
+df = pd.DataFrame(logins)
+
+# Print the DataFrame to show the fake login data in a neat tabular format
+print(df)
